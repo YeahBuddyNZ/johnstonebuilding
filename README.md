@@ -1,7 +1,7 @@
 # Johnstone Building — website
 
-A static website for [Johnstone Building](https://johnstonebuilding.co.nz/), an Auckland
-luxury residential construction company.
+A static website for [Johnstone Building](https://johnstonebuilding.co.nz/), a Hamilton,
+New Zealand luxury residential construction company.
 
 Plain HTML, one CSS file, one JavaScript file. **No backend, no build step, no
 dependencies.** Push to `main` and the site is live.
@@ -28,7 +28,7 @@ services.html            The five service lines + FAQ
 about.html               The practice, principles, numbers
 contact.html             Enquiry form and details
 project-headland.html    Case study
-project-kohu.html        Case study
+project-river.html       Case study
 project-showroom.html    Case study
 thanks.html              Form success page
 404.html                 Not-found page
@@ -105,16 +105,19 @@ To use a third-party endpoint instead (Formspree, Basin, Getform), remove
 This site is built to be cloned. In order of effort:
 
 1. **Colours and type** — everything is a CSS custom property in the `:root` block at
-   the top of `assets/css/site.css`. Change `--ink`, `--bone`, `--bronze` and the two
+   the top of `assets/css/site.css`. Change `--ink`, `--bone`, `--red` and the two
    `--font-*` values and the whole site re-skins consistently.
 2. **Fonts** — swap the Google Fonts `<link>` in each page's `<head>` and update
    `--font-display` / `--font-sans`.
-3. **Images** — drop replacements into `assets/img/` using the same filenames.
+3. **Logo** — the header lockup is currently set in type (`.brand` in the stylesheet).
+   Drop the real artwork in as `assets/logo.svg` and swap the three `<span>`s in the
+   `.brand` anchor for an `<img>`.
+4. **Images** — drop replacements into `assets/img/` using the same filenames.
    See `assets/img/README.md` for the sizes.
-4. **Copy** — edit the HTML directly. The shared header, mobile menu, closing
+5. **Copy** — edit the HTML directly. The shared header, mobile menu, closing
    call-to-action band and footer are byte-identical on every page, so a find-and-replace
    across all `.html` files is safe.
-5. **Metadata** — per page: `<title>`, `<meta name="description">`, the `og:*` tags,
+6. **Metadata** — per page: `<title>`, `<meta name="description">`, the `og:*` tags,
    `<link rel="canonical">`. Homepage also has a `GeneralContractor` JSON-LD block.
    Update `sitemap.xml`, `robots.txt` and `site.webmanifest` with the new domain.
 
@@ -122,7 +125,10 @@ This site is built to be cloned. In order of effort:
 
 ## Design notes
 
-- **Type**: Instrument Serif for display, Inter Tight for interface. All sizes are
+- **Brand**: palette and typography are taken from the Johnstone Building logo —
+  charcoal ground, the wordmark's light grey, and the mark's red used sparingly
+  as an accent rather than as a field.
+- **Type**: Archivo for display, Barlow for interface. All sizes are
   `clamp()`-based, so nothing needs a breakpoint to stay proportional.
 - **Motion**: `IntersectionObserver` reveals, a masked line-by-line headline rise,
   a slow image un-zoom, hero parallax, animated counters, and a cursor-following

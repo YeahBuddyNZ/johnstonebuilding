@@ -8,33 +8,33 @@
    1. Tokens
    -------------------------------------------------------------------------- */
 :root {
-  /* Brand palette -------------------------------------------------------- */
-  --ink:          #0C0B0A;   /* near-black, warm */
-  --ink-soft:     #16130F;
-  --ink-line:     rgba(245, 241, 234, 0.14);
-  --bone:         #F5F1EA;   /* warm off-white */
-  --bone-soft:    #EBE5DA;
-  --stone:        #8B8378;   /* muted mid grey-brown */
-  --stone-dark:   #55504A;
-  --bronze:       #C0A47E;   /* accent */
-  --bronze-deep:  #8E7350;
+  /* Brand palette — taken from the Johnstone Building logo ------------------ */
+  --ink:          #1E1E1C;   /* primary dark ground */
+  --ink-soft:     #2C2C2A;   /* secondary dark surface — the logo's own ground */
+  --ink-line:     rgba(233, 232, 229, 0.14);
+  --bone:         #E9E8E5;   /* the light grey of the wordmark */
+  --bone-soft:    #DAD8D4;
+  --stone:        #8A8987;
+  --stone-dark:   #565553;
+  --red:          #CE3A33;   /* the mark's red — used sparingly, never as a field */
+  --red-deep:     #A82C26;   /* the same red, darkened for light backgrounds */
 
   /* Semantic ------------------------------------------------------------- */
-  --bg:           var(--bone);
+  --bg:           #EDEBE8;
   --fg:           var(--ink);
   --muted:        var(--stone-dark);
-  --rule:         rgba(12, 11, 10, 0.14);
-  --accent:       var(--bronze-deep);
+  --rule:         rgba(30, 30, 28, 0.16);
+  --accent:       var(--red-deep);
 
   /* Type ----------------------------------------------------------------- */
-  --font-display: "Instrument Serif", "Times New Zealand", Georgia, "Times New Roman", serif;
-  --font-sans:    "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-display: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-sans:    "Barlow", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 
-  --fs-display: clamp(3.1rem, 9.2vw, 9.5rem);
-  --fs-h1:      clamp(2.6rem, 6.4vw, 6rem);
-  --fs-h2:      clamp(2.1rem, 4.4vw, 4.1rem);
-  --fs-h3:      clamp(1.5rem, 2.3vw, 2.1rem);
-  --fs-lead:    clamp(1.12rem, 1.65vw, 1.6rem);
+  --fs-display: clamp(2.7rem, 7.6vw, 7.4rem);
+  --fs-h1:      clamp(2.2rem, 5.2vw, 4.8rem);
+  --fs-h2:      clamp(1.8rem, 3.6vw, 3.3rem);
+  --fs-h3:      clamp(1.35rem, 2.1vw, 1.85rem);
+  --fs-lead:    clamp(1.1rem, 1.6vw, 1.5rem);
   --fs-body:    clamp(1rem, 1.05vw, 1.09rem);
   --fs-label:   0.7rem;
 
@@ -88,7 +88,7 @@ ul, ol { list-style: none; padding: 0; }
 ::selection { background: var(--ink); color: var(--bone); }
 
 :focus-visible {
-  outline: 2px solid var(--bronze);
+  outline: 2px solid var(--red);
   outline-offset: 3px;
   border-radius: 2px;
 }
@@ -124,20 +124,22 @@ body::after {
    -------------------------------------------------------------------------- */
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  font-weight: 400;
-  line-height: 0.98;
-  letter-spacing: -0.018em;
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.028em;
   text-wrap: balance;
 }
 
-.display  { font-size: var(--fs-display); line-height: 0.9; letter-spacing: -0.03em; }
+.display  { font-size: var(--fs-display); line-height: 0.94; letter-spacing: -0.038em; }
 .h1       { font-size: var(--fs-h1); }
 .h2       { font-size: var(--fs-h2); }
 .h3       { font-size: var(--fs-h3); line-height: 1.08; }
 
+/* No italic display face in this pairing — emphasis is carried by the brand
+   red instead, which keeps the one accent doing all the emphatic work. */
 em, .italic {
-  font-style: italic;
-  font-family: var(--font-display);
+  font-style: normal;
+  color: var(--accent);
 }
 
 .lead {
@@ -198,9 +200,9 @@ em, .italic {
   background: var(--ink);
   color: var(--bone);
   --fg: var(--bone);
-  --muted: rgba(245, 241, 234, 0.62);
+  --muted: rgba(233, 232, 229, 0.62);
   --rule: var(--ink-line);
-  --accent: var(--bronze);
+  --accent: var(--red);
 }
 
 /* -----------------------------------------------------------------------------
@@ -222,13 +224,13 @@ em, .italic {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(12, 11, 10, 0.55), rgba(12, 11, 10, 0));
+  background: linear-gradient(to bottom, rgba(30, 30, 28, 0.55), rgba(30, 30, 28, 0));
   opacity: 1;
   transition: opacity 0.45s var(--ease);
   pointer-events: none;
 }
 .site-header.is-stuck {
-  background: rgba(12, 11, 10, 0.86);
+  background: rgba(30, 30, 28, 0.86);
   -webkit-backdrop-filter: saturate(150%) blur(14px);
   backdrop-filter: saturate(150%) blur(14px);
   border-bottom-color: var(--ink-line);
@@ -255,23 +257,38 @@ em, .italic {
   z-index: 1;
 }
 
+/* Brand lockup — mirrors the two-tier structure of the logo: an angular red
+   device, the name in heavy tracked caps, the descriptor light and wider.
+   TODO: swap in assets/logo.svg once the original artwork is supplied. */
 .brand {
   display: inline-flex;
-  align-items: baseline;
-  gap: 0.55rem;
+  align-items: center;
+  gap: 0.7rem;
   font-family: var(--font-display);
-  font-size: clamp(1.15rem, 1.5vw, 1.5rem);
-  letter-spacing: 0.01em;
   line-height: 1;
   white-space: nowrap;
 }
-.brand span { 
-  font-family: var(--font-sans);
-  font-size: var(--fs-label);
-  letter-spacing: 0.24em;
+.brand-mark {
+  width: 13px;
+  height: 26px;
+  flex: none;
+  background: var(--red);
+  clip-path: polygon(0 0, 100% 0, 100% 58%, 50% 100%, 0 58%);
+}
+.brand-name {
+  font-size: clamp(0.9rem, 1.1vw, 1.05rem);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.brand-sub {
+  font-size: 0.6rem;
+  font-weight: 300;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
   opacity: 0.6;
 }
+@media (max-width: 460px) { .brand-sub { display: none; } }
 
 .nav { display: flex; align-items: center; gap: clamp(1.4rem, 2.6vw, 2.9rem); }
 .nav a {
@@ -365,8 +382,10 @@ em, .italic {
 .menu-list a {
   display: block;
   font-family: var(--font-display);
-  font-size: clamp(2.4rem, 11vw, 5rem);
-  line-height: 1.06;
+  font-size: clamp(2.1rem, 9.5vw, 4.4rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
   padding-block: 0.12em;
   transform: translateY(105%);
   transition: transform 0.7s var(--ease), color 0.35s var(--ease);
@@ -377,7 +396,7 @@ em, .italic {
 .menu-list li:nth-child(3) a { transition-delay: 0.22s; }
 .menu-list li:nth-child(4) a { transition-delay: 0.28s; }
 .menu-list li:nth-child(5) a { transition-delay: 0.34s; }
-.menu-list a:hover { color: var(--bronze); }
+.menu-list a:hover { color: var(--red); }
 
 .menu-foot {
   margin-top: auto;
@@ -389,7 +408,7 @@ em, .italic {
   align-items: flex-end;
   border-top: 1px solid var(--ink-line);
   font-size: 0.86rem;
-  color: rgba(245, 241, 234, 0.66);
+  color: rgba(233, 232, 229, 0.66);
 }
 .menu-foot a:hover { color: var(--bone); }
 
@@ -509,7 +528,7 @@ em, .italic {
   overflow: hidden;
   background: var(--bone-soft);
 }
-.dark .media { background: #191713; }
+.dark .media { background: #242422; }
 .media img { width: 100%; height: 100%; object-fit: cover; }
 .js .media--zoom img { transform: scale(1.14); transition: transform 1.6s var(--ease); }
 .js .media--zoom.is-in img { transform: scale(1); }
@@ -547,7 +566,7 @@ em, .italic {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to top, rgba(12, 11, 10, 0.92) 0%, rgba(12, 11, 10, 0.32) 45%, rgba(12, 11, 10, 0.55) 100%);
+    linear-gradient(to top, rgba(30, 30, 28, 0.92) 0%, rgba(30, 30, 28, 0.32) 45%, rgba(30, 30, 28, 0.55) 100%);
 }
 .hero .wrap { position: relative; z-index: 1; width: 100%; }
 
@@ -555,11 +574,11 @@ em, .italic {
 
 .hero-title {
   font-size: var(--fs-display);
-  line-height: 0.9;
-  letter-spacing: -0.032em;
-  max-width: 16ch;
+  line-height: 0.96;
+  letter-spacing: -0.038em;
+  max-width: 17ch;
 }
-.hero-title .thin { color: rgba(245, 241, 234, 0.55); }
+.hero-title .thin { color: rgba(233, 232, 229, 0.55); }
 
 .hero-foot {
   margin-top: clamp(2rem, 4vw, 3.4rem);
@@ -571,7 +590,7 @@ em, .italic {
   padding-top: 1.8rem;
   border-top: 1px solid var(--ink-line);
 }
-.hero-foot p { max-width: 44ch; color: rgba(245, 241, 234, 0.72); }
+.hero-foot p { max-width: 44ch; color: rgba(233, 232, 229, 0.72); }
 @media (min-width: 781px) { .hero-foot { padding-right: 4.5rem; } }
 
 .scroll-cue {
@@ -586,7 +605,7 @@ em, .italic {
   font-size: var(--fs-label);
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(245, 241, 234, 0.65);
+  color: rgba(233, 232, 229, 0.65);
   writing-mode: vertical-rl;
 }
 .scroll-cue::after {
@@ -664,10 +683,11 @@ em, .italic {
    -------------------------------------------------------------------------- */
 .statement p {
   font-family: var(--font-display);
-  font-size: clamp(1.7rem, 3.5vw, 3.35rem);
-  line-height: 1.14;
-  letter-spacing: -0.018em;
-  max-width: 22ch;
+  font-size: clamp(1.5rem, 2.9vw, 2.7rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.028em;
+  max-width: 24ch;
 }
 .statement .dim { color: var(--muted); }
 
@@ -742,7 +762,7 @@ em, .italic {
 .work-card .media::after {
   content: "";
   position: absolute; inset: 0;
-  background: rgba(12, 11, 10, 0.14);
+  background: rgba(30, 30, 28, 0.14);
   opacity: 0;
   transition: opacity 0.6s var(--ease);
 }
@@ -867,9 +887,11 @@ em, .italic {
 .process-step .n {
   display: block;
   font-family: var(--font-display);
-  font-size: 2.4rem;
+  font-size: 1.5rem;
+  font-weight: 600;
   line-height: 1;
   color: var(--accent);
+  font-variant-numeric: tabular-nums;
   margin-bottom: 1.1rem;
 }
 .process-step h3 { font-size: 1.35rem; margin-bottom: 0.7rem; }
@@ -887,9 +909,11 @@ em, .italic {
 .stat .num {
   display: block;
   font-family: var(--font-display);
-  font-size: clamp(3rem, 6.5vw, 5.5rem);
-  line-height: 0.92;
-  letter-spacing: -0.03em;
+  font-size: clamp(2.6rem, 5.4vw, 4.6rem);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
 }
 .stat .num small { font-size: 0.42em; vertical-align: super; letter-spacing: 0; }
 .stat p { margin-top: 0.9rem; font-size: 0.84rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
@@ -899,10 +923,11 @@ em, .italic {
    -------------------------------------------------------------------------- */
 .quote blockquote {
   font-family: var(--font-display);
-  font-size: clamp(1.6rem, 3.6vw, 3.2rem);
-  line-height: 1.16;
-  letter-spacing: -0.018em;
-  max-width: 24ch;
+  font-size: clamp(1.45rem, 2.9vw, 2.6rem);
+  font-weight: 500;
+  line-height: 1.22;
+  letter-spacing: -0.026em;
+  max-width: 26ch;
 }
 .quote figcaption {
   margin-top: clamp(1.6rem, 3vw, 2.4rem);
@@ -927,7 +952,7 @@ em, .italic {
 .cta-bg img { width: 100%; height: 100%; object-fit: cover; }
 .cta .wrap { position: relative; z-index: 1; }
 .cta h2 { max-width: 20ch; margin-inline: auto; }
-.cta .lead { margin-inline: auto; color: rgba(245, 241, 234, 0.72); }
+.cta .lead { margin-inline: auto; color: rgba(233, 232, 229, 0.72); }
 .cta-actions { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
 
 /* -----------------------------------------------------------------------------
@@ -1035,7 +1060,7 @@ em, .italic {
    19. Footer
    -------------------------------------------------------------------------- */
 .site-footer { background: var(--ink); color: var(--bone); padding-top: clamp(4rem, 8vw, 7rem); }
-.site-footer a:hover { color: var(--bronze); }
+.site-footer a:hover { color: var(--red); }
 
 .footer-top {
   display: grid;
@@ -1051,18 +1076,20 @@ em, .italic {
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(245, 241, 234, 0.5);
+  color: rgba(233, 232, 229, 0.5);
   margin-bottom: 1.4rem;
 }
 .footer-col li + li { margin-top: 0.75rem; }
-.footer-col a, .footer-col p { color: rgba(245, 241, 234, 0.78); font-size: 0.95rem; transition: color 0.35s var(--ease); }
+.footer-col a, .footer-col p { color: rgba(233, 232, 229, 0.78); font-size: 0.95rem; transition: color 0.35s var(--ease); }
 
 .footer-wordmark {
   font-family: var(--font-display);
-  font-size: clamp(3.6rem, 15.5vw, 15rem);
-  line-height: 0.82;
-  letter-spacing: -0.035em;
-  color: rgba(245, 241, 234, 0.09);
+  font-size: clamp(3rem, 13vw, 12.5rem);
+  font-weight: 700;
+  line-height: 0.86;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  color: rgba(233, 232, 229, 0.09);
   padding-bottom: clamp(1rem, 2vw, 2rem);
   user-select: none;
   white-space: nowrap;
@@ -1078,7 +1105,7 @@ em, .italic {
   border-top: 1px solid var(--ink-line);
   font-size: 0.78rem;
   letter-spacing: 0.06em;
-  color: rgba(245, 241, 234, 0.5);
+  color: rgba(233, 232, 229, 0.5);
 }
 .footer-bottom ul { display: flex; flex-wrap: wrap; gap: 1.4rem; }
 
@@ -1110,8 +1137,10 @@ em, .italic {
 .preloader.is-done { clip-path: inset(0 0 100% 0); pointer-events: none; }
 .preloader-mark {
   font-family: var(--font-display);
-  font-size: clamp(1.6rem, 4vw, 2.6rem);
-  letter-spacing: 0.02em;
+  font-size: clamp(1rem, 2.2vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
   overflow: hidden;
   display: flex;
   gap: 0.35em;
