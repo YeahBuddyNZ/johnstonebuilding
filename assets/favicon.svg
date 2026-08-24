@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Johnstone Building">
+  <rect width="64" height="64" fill="#0C0B0A"/>
+  <g fill="none" stroke="#C0A47E" stroke-width="3.2" stroke-linecap="square">
+    <path d="M14 14v26a8 8 0 0 1-8 8"/>
+    <path d="M34 14h12a8 8 0 0 1 0 16H34zm0 16h13a9 9 0 0 1 0 18H34z"/>
+  </g>
+</svg>
