@@ -270,11 +270,14 @@
 
   /* ---------------------------------------------------------------------------
      Contact form
-     Static hosting has no backend. Two supported modes:
-       1. Netlify Forms  — the <form> keeps its netlify attributes and posts normally.
-       2. Anywhere else  — we compose a pre-filled email and hand it to the visitor's
-                           mail client, so an enquiry is never silently lost.
-     Set data-mode="netlify" on the form when deploying to Netlify.
+     Static hosting has no backend, so an enquiry has to reach a human some other
+     way. The submission is posted to Netlify Forms over fetch; if that post does
+     not succeed — Forms not enabled on the project, a different host, no network
+     — we fall back to composing a pre-filled email.
+
+     The fallback matters: posting natively and trusting the host would show the
+     visitor a thank-you page whether or not anything was captured, and a lost
+     enquiry that looks like a sent one is the worst failure this form can have.
      ------------------------------------------------------------------------ */
   var form = $("[data-contact-form]");
   if (form) {
@@ -287,10 +290,9 @@
     };
 
     form.addEventListener("submit", function (e) {
-      if (form.querySelector('[name="company"]').value) { e.preventDefault(); return; } // honeypot
-      if (form.dataset.mode === "netlify") return; // let the host handle it
-
       e.preventDefault();
+      if (form.querySelector('[name="company"]').value) return; // honeypot
+
       var data = new FormData(form);
       var get = function (k) { return (data.get(k) || "").toString().trim(); };
 
@@ -299,24 +301,52 @@
         return;
       }
 
-      var lines = [
-        "Name: " + get("name"),
-        "Email: " + get("email"),
-        "Phone: " + (get("phone") || "—"),
-        "Location: " + (get("location") || "—"),
-        "Project type: " + (get("project") || "—"),
-        "Indicative budget: " + (get("budget") || "—"),
-        "",
-        get("message")
-      ];
-
       var to = form.dataset.email || "hayden@johnstonebuilding.co.nz";
-      var subject = "Project enquiry — " + get("name");
-      window.location.href = "mailto:" + to +
-        "?subject=" + encodeURIComponent(subject) +
-        "&body=" + encodeURIComponent(lines.join("\n"));
 
-      say("Opening your email app with the enquiry ready to send. If nothing happens, email " + to + " directly.", "ok");
+      var openMailClient = function () {
+        var lines = [
+          "Name: " + get("name"),
+          "Email: " + get("email"),
+          "Phone: " + (get("phone") || "—"),
+          "Location: " + (get("location") || "—"),
+          "Project type: " + (get("project") || "—"),
+          "Indicative budget: " + (get("budget") || "—"),
+          "",
+          get("message")
+        ];
+        window.location.href = "mailto:" + to +
+          "?subject=" + encodeURIComponent("Project enquiry — " + get("name")) +
+          "&body=" + encodeURIComponent(lines.join("\n"));
+        say("Opening your email app with the enquiry ready to send. If nothing happens, email " +
+            to + " directly.", "ok");
+      };
+
+      if (form.dataset.mode !== "netlify" || typeof window.fetch !== "function") {
+        openMailClient();
+        return;
+      }
+
+      // Netlify Forms accepts a urlencoded POST to any path on the site.
+      var body = [];
+      data.forEach(function (value, key) {
+        body.push(encodeURIComponent(key) + "=" + encodeURIComponent(value));
+      });
+
+      say("Sending your enquiry…", "ok");
+
+      window.fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body.join("&")
+      }).then(function (res) {
+        if (res.ok) {
+          window.location.href = form.getAttribute("action") || "thanks.html";
+        } else {
+          openMailClient();
+        }
+      }).catch(function () {
+        openMailClient();
+      });
     });
   }
 
