@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://johnstonebuilding.co.nz/sitemap.xml

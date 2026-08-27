@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Johnstone Building">
+  <rect width="64" height="64" fill="#1E1E1C"/>
+  <path d="M22 12h20v26.5L32 52 22 38.5z" fill="#CE3A33"/>
+  <path d="M32 12h10v26.5L32 52z" fill="#E9E8E5" opacity=".16"/>
+</svg>

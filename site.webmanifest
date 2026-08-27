@@ -1,0 +1,12 @@
+{
+  "name": "Johnstone Building",
+  "short_name": "Johnstone",
+  "description": "Luxury residential construction, renovation and fitout across Auckland.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0C0B0A",
+  "theme_color": "#0C0B0A",
+  "icons": [
+    { "src": "/assets/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
