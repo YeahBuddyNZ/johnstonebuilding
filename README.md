@@ -77,9 +77,11 @@ The contact form falls back to email mode — see below.
 
 ### GitHub Pages
 
-`.github/workflows/pages.yml` is already here. Enable it once under
-**Settings → Pages → Build and deployment → Source: GitHub Actions**.
-Add a `CNAME` file containing `johnstonebuilding.co.nz` for the custom domain.
+`.github/workflows/pages.yml` is here but set to **manual dispatch only**, because
+the site is hosted on Netlify and a push trigger would fail on every commit until
+Pages is switched on. To use Pages instead: enable it under **Settings → Pages →
+Build and deployment → Source: GitHub Actions**, add the `push` trigger back to the
+workflow, and add a `CNAME` file containing `johnstonebuilding.co.nz`.
 
 ---
 
